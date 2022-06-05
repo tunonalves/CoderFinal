@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from blog.models import Post, Categoria
 from .forms import formCat,formPost
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
 
 # Create your views here.
 
@@ -15,6 +17,8 @@ def categoria(request, categoria_id):
     posts=Post.objects.filter(categorias=categoria)
     return render(request, "blog/categoria.html", {'categoria':categoria,"posts": posts })
 
+
+
 def formpost(request):
     data = {
         'formpost' : formPost()
@@ -26,6 +30,8 @@ def formpost(request):
         else:
             data['formpost'] = forms
     return render(request,"blog/post.html",data)
+
+
 
 def formcat(request):
     data = {

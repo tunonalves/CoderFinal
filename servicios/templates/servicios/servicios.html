@@ -1,12 +1,10 @@
 {% extends "ProyectoWebApp/base.html" %}
-
 {% load static %}
-
 {% block content %}
-
+    {% if request.user.is_authenticated %}
+    <a class="btn btn-outline-secondary btn-lg btn-block" href="{% url 'new' %}">NEW SERVICE</a>
+    {% endif %}
     {% for servicio in servicios %}
-
-
     <section class="page-section clearfix">
         <div class="container">
           <div class="intro">
@@ -16,15 +14,9 @@
                 <span class="section-heading-lower">{{servicio.titulo}}</span>
                 <span class="section-heading-upper">{{servicio.contenido}}</span>
               </h2>
-              
-             
             </div>
           </div>
         </div>
       </section>
-
-
-
     {% endfor %}
-
 {% endblock %}
