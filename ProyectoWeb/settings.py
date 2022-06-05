@@ -146,7 +146,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'fedeta86@gmail.com'
 DEFAULT_FROM_EMAIL = 'fedeta86@gmail.com'
 SERVER_EMAIL = 'fedeta86@gmail.com'
-EMAIL_HOST_PASSWORD = '#porter1986'
+EMAIL_HOST_PASSWORD = 'null'
 
 CRISPY_TEMPLATE_PACK="bootstrap4"
 
