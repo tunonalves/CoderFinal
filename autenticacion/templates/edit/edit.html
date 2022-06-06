@@ -1,0 +1,14 @@
+{% extends "ProyectoWebApp/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% if request.user.is_authenticated %}
+    {{request.user.id}}
+    <form method="POST" action="">{% csrf_token %}
+        <div class="contenedorFormulario" style="Color: white">
+          {{form|crispy}} 
+          <button type="submit" class="btn btn-secondary">Editar</button>
+        </div>
+        </from>
+    {% endif %}
+{% endblock %}

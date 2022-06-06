@@ -56,7 +56,13 @@
           </li>
           <li class="nav-item {% if request.path == '/' %}active{% endif %} px-lg-4">
             <a class="btn btn-secondary btn-lg" href="https://tunonalves.wixsite.com/federico">ABOUT</a>
-          </li>        
+          </li>  
+          {% if user.is_authenticated %}    
+          </li>
+          <li class="nav-item {% if request.path == '/' %}active{% endif %} px-lg-4">
+            <a class="btn btn-secondary btn-lg" href="{% url 'edit' %}">EDIT CONTACT</a>
+          </li>   
+          {% endif %}
         </ul>
       </div>
     </div>

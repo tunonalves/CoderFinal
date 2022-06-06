@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm, AdminPasswordChangeForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from django.contrib.auth.models import User 
+from .forms import CustomUserChangeForm
+from django.contrib.auth.decorators import login_required
 
 class VRegistro(View):
 
@@ -21,9 +24,13 @@ class VRegistro(View):
                 messages.error(request, form.error_messages[msg])
             return render(request,"registro/registro.html",{"form":form})
 
+
+
 def cerrar_seccion(request):
     logout(request)
     return redirect("Home")
+
+
 
 def loguear(request):
     if request.method == "POST":
@@ -41,3 +48,17 @@ def loguear(request):
             messages.error(request, "Informacion No Valida")
     form = AuthenticationForm()
     return render(request,"login/login.html",{"form":form})
+
+
+
+@login_required
+def user_edit(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(instance=request.user)
+        if form.is_valid():
+            user = form.save()
+            user.save()
+    form = CustomUserChangeForm(instance=request.user)
+    return render(request,"edit/edit.html",{"form":form})
+
+
