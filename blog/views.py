@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from blog.models import Post, Categoria
 from .forms import formCat,formPost
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 
 
 def blog(request):
@@ -41,3 +45,33 @@ def formcat(request):
     else:
         data['formcat'] = forms
     return render(request,"blog/cats.html",data)
+
+
+def PostLists(request):
+    return render(request,'blog/listPost.html')
+
+
+
+class PostList(LoginRequiredMixin, ListView):
+    model = Post
+    template_name = 'blog/listPost.html'
+
+class PostDetalle(LoginRequiredMixin, DetailView):
+    model = Post
+    template_name = 'blog/detailsPost.html'
+
+
+class PostCreacion(CreateView):
+    model = Post
+    success_url = reverse_lazy('post_listar')#
+    fields='__all__'
+
+class PostEdicion(UpdateView):
+    model = Post
+    success_url = reverse_lazy('post_editar')#
+    fields='__all__'
+
+class PostEliminacion(DeleteView):
+    model = Post
+    success_url = reverse_lazy('post_listar')#
+    fields='__all__'
