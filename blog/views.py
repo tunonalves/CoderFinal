@@ -63,15 +63,15 @@ class PostDetalle(LoginRequiredMixin, DetailView):
 
 class PostCreacion(CreateView):
     model = Post
-    success_url = reverse_lazy('post_listar')#
+    success_url = reverse_lazy('post_list')#
     fields='__all__'
 
 class PostEdicion(UpdateView):
     model = Post
-    success_url = reverse_lazy('post_editar')#
+    success_url = reverse_lazy('post_list')#
     fields='__all__'
 
 class PostEliminacion(DeleteView):
     model = Post
-    success_url = reverse_lazy('post_listar')#
+    success_url = reverse_lazy('post_list')#
     fields='__all__'

@@ -5,7 +5,10 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.models import User 
 from .forms import CustomUserChangeForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 
 class VRegistro(View):
 
@@ -62,3 +65,26 @@ def user_edit(request):
     return render(request,"edit/edit.html",{"form":form})
 
 
+
+class UserList(LoginRequiredMixin, ListView):
+    model = User
+    template_name = 'auth/listUser.html'
+
+class UserDetalle(LoginRequiredMixin, DetailView):
+    model = User
+    template_name = 'auth/user_details.html'
+
+class UserCreacion(CreateView):
+    model = User
+    success_url = reverse_lazy('user_list')#
+    fields='__all__'
+
+class UserEdicion(UpdateView):
+    model = User
+    success_url = reverse_lazy('user_list')#
+    fields='__all__'
+
+class UserEliminacion(DeleteView):
+    model = User
+    success_url = reverse_lazy('user_list')#
+    fields='__all__'
